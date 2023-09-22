@@ -3,11 +3,8 @@ import { LLM } from "llama-node";
 import { LLMRS } from "llama-node/dist/llm/llm-rs.cjs";
 import path from "path";
 
-
-
-const modelPath = path.resolve(process.cwd(), "./llm/models/llama2.7b.vigogne2.ggml_v3.q4_K_M.bin");
+const modelPath = path.resolve(process.cwd(), "./llm/models/Vigogne-Instruct-13B.ggmlv3.q4_1.bin");
 const modelType = ModelType.Llama
-const prmpt = 'Hello'
 const llama = new LLM(LLMRS);
 
 const toChatTemplate = (prompt) =>
@@ -17,7 +14,7 @@ const toChatTemplate = (prompt) =>
 
 const run = async () => {
   const params = {
-    prompt: toChatTemplate(prmpt),
+    prompt: toChatTemplate('Bonjour Vigogne !'),
     numPredict: 128,
     temperature: 0.8,
     topP: 1,
