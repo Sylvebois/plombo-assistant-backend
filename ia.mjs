@@ -1,33 +1,25 @@
-import { ModelType } from "@llama-node/core";
-import { LLM } from "llama-node";
-import { LLMRS } from "llama-node/dist/llm/llm-rs.cjs";
+import {fileURLToPath} from "url";
 import path from "path";
+import {LlamaModel, LlamaContext, LlamaChatSession} from "node-llama-cpp";
 
-const modelPath = path.resolve(process.cwd(), "./llm/models/Vigogne-Instruct-13B.ggmlv3.q4_1.bin");
-const modelType = ModelType.Llama
-const llama = new LLM(LLMRS);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const toChatTemplate = (prompt) =>
-  `### Instruction:  
-    ${prompt}  
-    ### Response:`;
+const model = new LlamaModel({
+    modelPath: path.join(__dirname, "llm", "models", "vigogne-2-7b-instruct.Q4_K_M.gguf")
+});
+const context = new LlamaContext({model});
+const session = new LlamaChatSession({context});
 
-const run = async () => {
-  const params = {
-    prompt: toChatTemplate('Bonjour Vigogne !'),
-    numPredict: 128,
-    temperature: 0.8,
-    topP: 1,
-    topK: 40,
-    repeatPenalty: 1,
-    repeatLastN: 64,
-    seed: 0,
-    feedPrompt: true,
-  };
 
-  await llama.load({ modelPath, modelType });
-  await llama.createCompletion(params, (response) => {
-    process.stdout.write(response.token);
-  });
-};
-run();
+const q1 = "Hi there, how are you?";
+console.log("User: " + q1);
+
+const a1 = await session.prompt(q1);
+console.log("AI: " + a1);
+
+
+const q2 = "Summerize what you said";
+console.log("User: " + q2);
+
+const a2 = await session.prompt(q2);
+console.log("AI: " + a2);
