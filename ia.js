@@ -11,7 +11,7 @@ const context = new LlamaContext({model});
 const session = new LlamaChatSession({context});
 
 
-const q1 = "Hi there, how are you?";
+const q1 = "Bonjour, comment vas-tu?";
 console.log("User: " + q1);
 
 const a1 = await session.prompt(q1);

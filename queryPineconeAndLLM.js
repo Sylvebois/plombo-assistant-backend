@@ -1,6 +1,3 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
-
 import { HuggingFaceTransformersEmbeddings } from 'langchain/embeddings/hf_transformers';
 import { LlamaCpp } from 'langchain/llms/llama_cpp';
 import { loadQAStuffChain } from "langchain/chains";
@@ -15,33 +12,24 @@ export const queryPineconeAndLLM = async (client, indexName, question) => {
   }).embedQuery(question);
 
   let queryResponse = await index.query({
-    queryResquest: {
-      topK: 10, // number of result to return
-      vector: queryEmbedding,
-      includeMetadata: true,
-      includeValues: true
-    }
+    topK: 10, // number of result to return
+    vector: queryEmbedding,
+    includeMetadata: true,
+    includeValues: true,
   });
 
   console.log(`Found ${queryResponse.matches.length} matches ...`);
   console.log(`Asking question: ${question} ...`);
 
   if (queryResponse.matches.length) {
-    const __dirname = path.dirname(fileURLToPath(import.meta.url));
-    const modelPath = path.join(__dirname, 'llm', 'models', 'vigogne-2-7b-instruct.Q4_K_M.gguf');
-    
-    const llm = new LlamaCpp({ modelPath: modelPath });
+    const llm = new LlamaCpp({ modelPath: process.env.MODEL_PATH });
     const chain = new loadQAStuffChain(llm);
 
-    const concatenatedPageContent = queryResponse.matches
-      .map(match => match.metadata.pageContent)
-      .join(' ');
+    const docs = queryResponse.matches.map(match => {
+      return new Document({ ...match, pageContent: match.metadata.pageContent })
+    });
 
-    const result = await chain.call({
-      input_documents: [new Document({ pageContent: concatenatedPageContent })],
-      question: question
-    })
-
+    const result = await chain.call({ input_documents: docs, question: question })
     console.log(`Answer : ${result.text}`);
   }
   else {

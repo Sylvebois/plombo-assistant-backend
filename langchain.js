@@ -16,8 +16,8 @@ const loader = new DirectoryLoader('./docs', {
 });
 const docs = await loader.load();
 
-const question = '';
-const indexName = 'sanidel-docs';
+const question = 'Quel est le prix de vente recommandé (recommended retail price) pour un Abattant Blanc Brillant Mat Starck ?';
+const indexName = process.env.PINECONE_INDEX;
 const vectorDimension = 384;     // Depends of the embedder (1536 for OpenAI, 384 for HuggingFace) ???
 
 const pinecone = new Pinecone({
@@ -26,8 +26,8 @@ const pinecone = new Pinecone({
 });
 
 (async () => {
-  await createPineconeIndex(pinecone, indexName, vectorDimension);
-  await updatePinecone(pinecone, indexName, docs);
+ // await createPineconeIndex(pinecone, indexName, vectorDimension);
+ // await updatePinecone(pinecone, indexName, docs);
   await queryPineconeAndLLM(pinecone, indexName, question);
 })();
 
