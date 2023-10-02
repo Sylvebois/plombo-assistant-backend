@@ -26,9 +26,10 @@ export const queryPineconeAndLLM = async (client, indexName, question) => {
     const chain = new loadQAStuffChain(llm);
 
     const docs = queryResponse.matches.map(match => {
+      console.log(match.metadata.pageContent.length)
       return new Document({ ...match, pageContent: match.metadata.pageContent })
     });
-
+    
     const result = await chain.call({ input_documents: docs, question: question })
     console.log(`Answer : ${result.text}`);
   }

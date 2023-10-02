@@ -4,7 +4,7 @@
   "description": "Access to all the AI stuff for Plombo",
   "main": "index.js",
   "scripts": {
-    "start": "node ia.mjs",
+    "start": "node langchain.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

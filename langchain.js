@@ -2,13 +2,13 @@ import { Pinecone } from '@pinecone-database/pinecone';
 import { DirectoryLoader } from 'langchain/document_loaders/fs/directory';
 import { TextLoader } from 'langchain/document_loaders/fs/text';
 import { CSVLoader } from 'langchain/document_loaders/fs/csv';
-import * as dotenv from 'dotenv';
+import { config } from 'dotenv';
 
 import { createPineconeIndex } from './createPineconeIndex.js';
 import { updatePinecone } from './updatePinecone.js';
 import { queryPineconeAndLLM } from './queryPineconeAndLLM.js';
 
-dotenv.config();
+config();
 
 const loader = new DirectoryLoader('./docs', {
   '.txt': (path) => new TextLoader(path),
@@ -26,8 +26,8 @@ const pinecone = new Pinecone({
 });
 
 (async () => {
- // await createPineconeIndex(pinecone, indexName, vectorDimension);
- // await updatePinecone(pinecone, indexName, docs);
+  await createPineconeIndex(pinecone, indexName, vectorDimension);
+  await updatePinecone(pinecone, indexName, docs);
   await queryPineconeAndLLM(pinecone, indexName, question);
 })();
 

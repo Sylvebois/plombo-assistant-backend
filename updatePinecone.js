@@ -17,7 +17,7 @@ export const updatePinecone = async (client, indexName, documents) => {
     const txtPath = doc.metadata.source;
     const fileName = txtPath.split(/\/|\\/g).pop();
     const text = doc.pageContent;
-    const textSplitter = new RecursiveCharacterTextSplitter({ chunkSize: 1000 });
+    const textSplitter = new RecursiveCharacterTextSplitter({ chunkSize: 250 }); // Size depends on the model ???
 
     console.log('Splitting text into chuncks ...');
 
