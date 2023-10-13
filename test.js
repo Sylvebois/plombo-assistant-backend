@@ -2,11 +2,11 @@ import { LlamaCpp } from 'langchain/llms/llama_cpp';
 import { PromptTemplate } from "langchain/prompts";
 import { LLMChain } from "langchain/chains";
 
-import * as dotenv from 'dotenv';
-dotenv.config();
+import { config } from 'dotenv';
+config();
 
 // We can construct an LLMChain from a PromptTemplate and an LLM.
-const model = new LlamaCpp({ modelPath: process.env.MODEL_PATH });
+const model = new LlamaCpp({ modelPath: process.env.MODEL_PATH, threads: 14 });
 const prompt = PromptTemplate.fromTemplate(
   "What is a good name for a company that makes {product}?"
 );

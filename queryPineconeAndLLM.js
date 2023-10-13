@@ -22,11 +22,11 @@ export const queryPineconeAndLLM = async (client, indexName, question) => {
   console.log(`Asking question: ${question} ...`);
 
   if (queryResponse.matches.length) {
-    const llm = new LlamaCpp({ modelPath: process.env.MODEL_PATH });
+    const llm = new LlamaCpp({ modelPath: process.env.MODEL_PATH, embedding: true, threads: 14 });
     const chain = new loadQAStuffChain(llm);
 
     const docs = queryResponse.matches.map(match => {
-      console.log(match.metadata.pageContent.length)
+      console.log(match.metadata.pageContent)
       return new Document({ ...match, pageContent: match.metadata.pageContent })
     });
     

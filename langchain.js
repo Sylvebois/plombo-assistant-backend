@@ -26,9 +26,10 @@ const pinecone = new Pinecone({
 });
 
 (async () => {
-  await createPineconeIndex(pinecone, indexName, vectorDimension);
-  await updatePinecone(pinecone, indexName, docs);
+//  await createPineconeIndex(pinecone, indexName, vectorDimension);
+//  await updatePinecone(pinecone, indexName, docs);
   await queryPineconeAndLLM(pinecone, indexName, question);
 })();
 
 // info found here : https://youtu.be/CF5buEVrYwo?si=GxTb2uzDbYADBiw4
+// Beware of the compiled version of llama-cpp (disable AVX instructions and enable SSSE3 for my current old server ...)
