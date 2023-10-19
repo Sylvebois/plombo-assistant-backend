@@ -1,4 +1,5 @@
 import { LlamaModel, LlamaContext, LlamaChatSession } from 'node-llama-cpp';
+import * as fs from 'fs';
 import { config } from 'dotenv';
 
 config();
@@ -8,7 +9,7 @@ const context = new LlamaContext({ model, batchSize: 4096, threads: 14 });
 const session = new LlamaChatSession({ 
   temperature:0,
   context,
- /* systemPrompt: `
+  systemPrompt: `
 You are Plombo, a French speaking, knowledgeable and helpful AI assistant who fulfills any request with detail and precision. You always use a polite language (an example is the use of the formal form of address instead of the informal one) and, if you do not know the anwser, you just say "Désolé, je ne trouve pas cette information, un de mes collègues pourrait peut-être vous aider ..."
 You are specialized in heating systems (radiators, boiler, floor heating ...), plumbing and sanitary products (baths, showers, toilets, bathroom meubels ...). 
 You are working for the company Sanidel and you have access to many catalogs and Excel listings to extend your knowledge.
@@ -17,8 +18,11 @@ Sanidel est une société familiale belge spécialisée dans les systèmes de ch
 Sanidel fait de la vente en gros et au détail. La société vend essentiellement à des installateurs professionnels mais peut également vendre aux particuliers.
 La société a été fondée en 1969 par Charles Delvaux. Le dirigeant actuel est Luc Delvaux, fils du fondateur.
 Le premier établissement se situait à Marloie. Le magasin a ensuite déménagé vers Marche-en-Famenne, à proximité de la nationale 4. Il existe deux autres magasins, un à Jambes (où se trouve le siège social) et un à Liège. `
-*/
+
  });
+
+ const fsWriteStream = fs.createWriteStream('responseTime.csv', { flags: 'a' });
+ fsWriteStream.write('collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; ia.js; sysPrompt, 4096 batchSize, 14 threads;');
 
 const q1 = `Bonjour, comment t'appelles-tu ?`;
 console.log('User: ' + q1);
@@ -28,7 +32,7 @@ const a1 = await session.prompt(q1);
 console.log('AI: ' + a1);
 let end = Date.now();
 
-console.log(`Première réponse en ${end-start}ms`)
+fsWriteStream.write(`${end-start}ms;`);
 
 const q2 = `Que peux-tu me dire sur la société Sanidel ?`;
 console.log('User: ' + q2);
@@ -38,7 +42,7 @@ const a2 = await session.prompt(q2);
 console.log('AI: ' + a2);
 end = Date.now();
 
-console.log(`Seconde réponse en ${end-start}ms`)
+fsWriteStream.write(`${end-start}ms;`);
 
 const q3 = `Qu'est-ce que le thermosiphon ?`;
 console.log('User: ' + q3);
@@ -48,4 +52,5 @@ const a3 = await session.prompt(q3);
 console.log('AI: ' + a3);
 end = Date.now();
 
-console.log(`Seconde réponse en ${end-start}ms`)
+fsWriteStream.write(`${end-start}ms;\n`);
+fsWriteStream.close();

@@ -1,0 +1,7 @@
+Model;File;Context;Q1;Q2;Q3
+collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; ia.js; no sysPrompt, 4096 batchSize, 14 threads;87893ms;159740ms;173096ms;
+collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; ia.js; sysPrompt, 4096 batchSize, 14 threads;487223ms;107188ms;68467ms;
+collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; ia.js; sysPrompt, 4096 batchSize, 14 threads;489573ms;108114ms;68958ms;
+collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; ia.js; sysPrompt, 4096 batchSize, 14 threads;481006ms;107370ms;69091ms;
+collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; langchain.js; sysPrompt, 4096 batchSize, 14 threads;479961ms;321117ms;348000ms;
+collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; langchain.js; sysPrompt, 4096 batchSize, 14 threads;
