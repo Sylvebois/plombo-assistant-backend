@@ -1,5 +1,5 @@
 import { Pinecone } from '@pinecone-database/pinecone';
-import { PINECONE, MODELPATH } from './utils/config.js';
+import { PINECONE, MODELPATH } from '../utils/config.js';
 import { queryPineconeAndLLM } from './queryPineconeAndLLM.js';
 
 const questions = [
