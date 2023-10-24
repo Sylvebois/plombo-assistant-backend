@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 
 config();
 
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3300;
 
 const PINECONE = { 
   index: process.env.PINECONE_INDEX,

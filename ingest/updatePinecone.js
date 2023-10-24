@@ -1,7 +1,7 @@
 import { HuggingFaceTransformersEmbeddings } from 'langchain/embeddings/hf_transformers';
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
 
-export const updatePinecone = async (client, indexName, documents) => {
+export const updatePinecone = async (client, indexName, documents, chunckSize, chunckOverlap) => {
   console.log('Retrieving Pinecone index');
 
   const index = client.Index(indexName);
@@ -17,7 +17,7 @@ export const updatePinecone = async (client, indexName, documents) => {
     const txtPath = doc.metadata.source;
     const fileName = txtPath.split(/\/|\\/g).pop();
     const text = doc.pageContent;
-    const textSplitter = new RecursiveCharacterTextSplitter({ chunkSize: 250 }); // Size depends on the model ???
+    const textSplitter = new RecursiveCharacterTextSplitter({ chunckSize, chunckOverlap });
 
     console.log('Splitting text into chuncks ...');
 

@@ -7,7 +7,7 @@ import { createPineconeIndex } from './createPineconeIndex.js';
 import { updatePinecone } from './updatePinecone.js';
 import { PINECONE } from '../utils/config.js';
 
-const loader = new DirectoryLoader('../docs', {
+const loader = new DirectoryLoader('./docs', {
   '.txt': (path) => new TextLoader(path),
   '.csv': (path) => new CSVLoader(path, { 'delimiter': ';' })
 });
@@ -18,9 +18,11 @@ const pineconeClient = new Pinecone({
   environment: PINECONE.env
 });
 
-const vectorDimension = 384;     // Depends of the embedder (1536 for OpenAI, 384 for HuggingFace) ???
+const vectorDimension = 384;    // Depends of the embedder (1536 for OpenAI, 384 for HuggingFace) ???
+const chunckSize = 512;          // Size depends of the model ???
+const chunckOverlap = 20;
 
 (async () => {
   await createPineconeIndex(pineconeClient, PINECONE.index, vectorDimension);
-  await updatePinecone(pineconeClient, PINECONE.index, docs);
+  await updatePinecone(pineconeClient, PINECONE.index, docs, chunckSize, chunckOverlap);
 })();
