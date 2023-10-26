@@ -5,7 +5,7 @@ import { PromptTemplate } from "langchain/prompts";
 import { loadQAStuffChain } from 'langchain/chains';
 import { Document } from 'langchain/document';
 
-import { PINECONE, MODELPATH } from './utils/config.js';
+import { PINECONE, MODELPATH } from '../utils/config.js';
 
 const pineconeClient = new Pinecone({ apiKey: PINECONE.key, environment: PINECONE.env });
 

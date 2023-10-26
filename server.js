@@ -2,28 +2,17 @@ import express from 'express';
 import cors from 'cors';
 
 import * as middleware from './utils/middleware.js';
-import queryPineconeAndLLM from './askToAI.js';
+import askToLLMRouter from './controllers/askToLLM.js';
+import catalogsRouter from './controllers/catalogs.js';
 
 const server = express();
+
 server.use(cors());
 server.use(express.json());
 server.use(middleware.requestLogger);
 
-server.post('/askLLM', async (req, resp, next) => {
-  try {
-    const query = req.body.query;
-    if(query) {
-      const response = await queryPineconeAndLLM(query);
-      resp.status(200).json(response);
-    }
-    else {
-      resp.status(200).json({content: `Aucune question n'a été posée ...`});
-    }
-  }
-  catch (err) {
-    next(err);
-  }
-});
+server.use('/askToLLM', askToLLMRouter);
+server.use('/catalogs', catalogsRouter);
 
 server.use(middleware.unknownEndpoint);
 server.use(middleware.errorHandler);

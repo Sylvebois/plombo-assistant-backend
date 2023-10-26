@@ -7,7 +7,7 @@ import { createPineconeIndex } from './createPineconeIndex.js';
 import { updatePinecone } from './updatePinecone.js';
 import { PINECONE } from '../utils/config.js';
 
-const loader = new DirectoryLoader('./docs', {
+const loader = new DirectoryLoader('./ingest/docs', {
   '.txt': (path) => new TextLoader(path),
   '.csv': (path) => new CSVLoader(path, { 'delimiter': ';' })
 });
