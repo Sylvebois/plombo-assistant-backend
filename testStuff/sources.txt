@@ -1,0 +1,8 @@
+https://youtu.be/CF5buEVrYwo?si=GxTb2uzDbYADBiw4
+https://www.youtube.com/watch?v=mAYS4d0hrek
+https://sophiamyang.github.io/slides-langchain-rag-panel/
+https://allenchun.medium.com/feed-local-data-to-llm-using-langchain-node-js-fd7ac44093e9
+https://js.langchain.com/docs/modules/data_connection/vectorstores/integrations/pinecone
+
+
+Beware of the compiled version of llama-cpp (disable AVX instructions and enable SSSE3 for my current old server ...)

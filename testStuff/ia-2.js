@@ -3,7 +3,7 @@ import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { CSVLoader } from 'langchain/document_loaders/fs/csv';
 
-// 2. Import OpenAI langugage model and other related modules
+// 2. Import language model and other related modules
 import { Pinecone } from '@pinecone-database/pinecone';
 import { LlamaCpp } from 'langchain/llms/llama_cpp';
 import { VectorDBQAChain } from "langchain/chains";
@@ -12,15 +12,15 @@ import { HuggingFaceTransformersEmbeddings } from 'langchain/embeddings/hf_trans
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
 // 3. Import dotenv for loading environment variables and fs for file system operations
-import * as dotenv from 'dotenv';
+import { config } from 'dotenv';
 
 // 4. Load Environment Variables
-dotenv.config()
+config()
 
 // 5. Load local files such as .json and .txt from ./docs
-const loader = new DirectoryLoader("./docs", {
+const loader = new DirectoryLoader('./ingest/docs', {
   '.csv': (path) => new CSVLoader(path, { 'delimiter': ';' }),
-  ".txt": (path) => new TextLoader(path)
+  '.txt': (path) => new TextLoader(path)
 })
 
 const pinecone = new Pinecone({
@@ -34,13 +34,12 @@ const normalizeDocuments = (docs) => {
   return docs.map((doc) => {
     if (typeof doc.pageContent === "string") {
       return doc.pageContent;
-    } else if (Array.isArray(doc.pageContent)) {
+    }
+    else if (Array.isArray(doc.pageContent)) {
       return doc.pageContent.join("\n");
     }
   });
 }
-
-const VECTOR_STORE_PATH = "Documents.index";
 
 // 7. Define the main function to run the entire process
 export const run = async (params) => {
@@ -64,6 +63,3 @@ export const run = async (params) => {
 }
 
 run(process.argv.slice(2))
-
-//source: https://allenchun.medium.com/feed-local-data-to-llm-using-langchain-node-js-fd7ac44093e9
-//source: https://js.langchain.com/docs/modules/data_connection/vectorstores/integrations/pinecone

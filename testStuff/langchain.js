@@ -6,7 +6,7 @@ const questions = [
   `Bonjour, comment t'appelles-tu ?`,
   `Que peux-tu me dire sur la société Sanidel ?`,
   `Qu'est-ce que le thermosiphon ?`,
-  //`Quel est le prix de vente recommandé (recommended retail price) pour un Abattant Blanc Brillant Mat Starck ?`
+  `Quel est le prix de vente d'un bain en acier de 180x80cm ?`
 ]
 
 const pineconeClient = new Pinecone({ apiKey: PINECONE.key, environment: PINECONE.env });
@@ -14,6 +14,3 @@ const pineconeClient = new Pinecone({ apiKey: PINECONE.key, environment: PINECON
 (async () => {
   await queryPineconeAndLLM(pineconeClient, PINECONE.index, MODELPATH, questions);
 })();
-
-// info found here : https://youtu.be/CF5buEVrYwo?si=GxTb2uzDbYADBiw4
-// Beware of the compiled version of llama-cpp (disable AVX instructions and enable SSSE3 for my current old server ...)
