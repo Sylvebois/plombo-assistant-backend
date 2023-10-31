@@ -4,4 +4,4 @@ collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; ia.js; sysPrompt, 4096 batchSiz
 collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; ia.js; sysPrompt, 4096 batchSize, 14 threads;489573ms;108114ms;68958ms;
 collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; ia.js; sysPrompt, 4096 batchSize, 14 threads;481006ms;107370ms;69091ms;
 collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; langchain.js; sysPrompt, 4096 batchSize, 14 threads;479961ms;321117ms;348000ms;
-collectivecognition-v1.1-mistral-7b.Q4_K_M.gguf; langchain.js; sysPrompt, 4096 batchSize, 14 threads;
+vigogne-2-7b-instruct.Q4_K_M.gguf; convesation_with_memory.js; promptTemplate, 4096 batchSize, 14 threads;457185ms;761668ms;1078406ms;
