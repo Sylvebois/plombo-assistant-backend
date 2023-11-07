@@ -10,6 +10,14 @@ const PINECONE = {
   key: process.env.PINECONE_KEY
 };
 
+const SQL = {
+  host: process.env.SQL_HOST,
+  port: process.env.SQL_PORT,
+  database: process.env.SQL_DB,
+  username: process.env.SQL_USER,
+  password: process.env.SQL_PASS
+}
+
 const MODELPATH = process.env.MODEL_PATH;
 
-export { PORT, PINECONE, MODELPATH };
+export { PORT, PINECONE, SQL, MODELPATH };
