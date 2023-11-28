@@ -33,6 +33,7 @@
     "langchain": "^0.0.153",
     "mssql": "^9.3.2",
     "node-llama-cpp": "^2.5.1",
+    "to-words": "^3.6.1",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {
